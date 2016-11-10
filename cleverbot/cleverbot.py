@@ -13,6 +13,7 @@ import discord
 import asyncio
 import re
 import datetime
+import urllib
 
 class Cleverbot():
     """Cleverbot"""
@@ -43,6 +44,7 @@ class Cleverbot():
         dataIO.save_json("data/cleverbot/settings.json", self.settings)
 
     async def get_response(self, msg):
+        msg = urllib.parse.quote_plus(msg,encoding='utf-8',errors='replace')
         question = self.bot.loop.run_in_executor(None, self.clv.ask, msg)
         try:
             answer = await asyncio.wait_for(question, timeout=10)
