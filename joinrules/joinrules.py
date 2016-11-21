@@ -33,7 +33,7 @@ class JoinRules:
             msg += "```"
             await self.bot.say(msg)
 
-    @welcomeset.command(pass_context=True)
+    @joinrules.command(pass_context=True)
     async def rules(self, ctx, *, format_msg):
         """Sets the rules message format for the server.
 
@@ -48,7 +48,7 @@ class JoinRules:
         await self.bot.say("Rules message set for the server.")
         await self.send_testing_rulesmsg(ctx)
 
-    @welcomeset.command(pass_context=True)
+    @joinrules.command(pass_context=True)
     async def togglerules(self, ctx):
         """Turns on/off sending rules new users to the server"""
         server = ctx.message.server
