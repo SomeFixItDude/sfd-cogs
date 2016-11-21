@@ -23,7 +23,6 @@ class JoinRules:
         server = ctx.message.server
         if server.id not in self.settings:
             self.settings[server.id] = default_settings
-            self.settings[server.id]["CHANNEL"] = server.default_channel.id
             fileIO("data/joinrules/settings.json","save",self.settings)
         if ctx.invoked_subcommand is None:
             await send_cmd_help(ctx)
