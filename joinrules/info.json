@@ -1,6 +1,7 @@
 {
     "AUTHOR" : "cyth",
-    "DESCRIPTION" : "When a new user joins, the bot will send a customized direct message to the new member",
-    "DISABLED" : false,
-    "NAME" : "Send a custom direct message to new members"
+    "INSTALL_MSG" : "Thanks for installing, enjoy",
+    "NAME" : "JoinRules",
+    "SHORT" : "Sends a DM to new members with rules of the server",
+    "DESCRIPTION" : "Sends a direct message to new members with rules of the server"
 }

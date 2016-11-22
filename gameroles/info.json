@@ -1,0 +1,7 @@
+{
+    "AUTHOR" : "cyth",
+    "INSTALL_MSG" : "Thanks for installing, enjoy",
+    "NAME" : "GameRoles",
+    "SHORT" : "Roles for games played on the server",
+    "DESCRIPTION" : "Monitors member statuses for games and auto create roles for them"
+}
