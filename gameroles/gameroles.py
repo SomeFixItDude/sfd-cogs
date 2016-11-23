@@ -11,6 +11,9 @@ class GameRoles:
 
     def __init__(self, bot):
         self.bot = bot
+        self.settings = fileIO("data/gameroles/settings.json", "load")
+        self.games = fileIO("data/gameroles/games.json", "load")
+        self.gamealias = fileIO("data/gameroles/gamealias.json", "load")                
 
     @commands.group(pass_context=True, no_pm=True)
     async def gameroles(self, ctx):
