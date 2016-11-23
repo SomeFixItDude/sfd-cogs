@@ -1,5 +1,10 @@
 import discord
 from discord.ext import commands
+from .utils.dataIO import fileIO
+from .utils import checks
+from __main__ import send_cmd_help
+import os
+import asyncio
 
 class GameRoles:
     """Auto-create roles based on games played by users"""
