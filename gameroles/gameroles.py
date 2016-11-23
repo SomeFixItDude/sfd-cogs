@@ -1,3 +1,4 @@
+#https://raw.githubusercontent.com/Rapptz/discord.py/fb1f9ac65977f82cbec2ab89f975fa8b21eb48f9/docs/api.rst
 import discord
 from discord.ext import commands
 from .utils.dataIO import fileIO
@@ -13,7 +14,6 @@ class GameRoles:
         self.bot = bot
         self.settings = fileIO("data/gameroles/settings.json", "load")
         self.games = fileIO("data/gameroles/games.json", "load")
-        self.gamealias = fileIO("data/gameroles/gamealias.json", "load")                
 
     @commands.group(pass_context=True, no_pm=True)
     async def gameroles(self, ctx):
@@ -22,23 +22,30 @@ class GameRoles:
         if server.id not in self.settings:
             self.settings[server.id] = {}
             self.games[server.id] = {}
-            self.gamealias[server.id] = {}
             fileIO("data/gameroles/settings.json","save",self.settings)
             fileIO("data/gameroles/games.json","save",self.games)
-            fileIO("data/gameroles/gamealias.json","save",self.gamealias)
         if ctx.invoked_subcommand is None:
             await send_cmd_help(ctx)
             msg = "```"
-            msg += "leave [game name] - Removes you from the role"
-            msg += "  example: [p]gameroles leave GangBeasts"
-            msg += "join [game name] - Adds you to a role"
-            msg += "  example: [p]gameroles join GangBeasts"
-            msg += "list - Lists available game roles"
-            msg += "  example: [p]gameroles list"
-            msg += "exclude [game name] - Exlcude a game from auto role"
-            msg += "  example: [p]gameroles exclude GangBeasts"
+            msg += "leave [game name] - Removes you from the role\n"
+            msg += "  example: [p]gameroles leave GangBeasts\n"
+            msg += "join [game name] - Adds you to a role\n"
+            msg += "  example: [p]gameroles join GangBeasts\n"
+            msg += "list - Lists available game roles\n"
+            msg += "  example: [p]gameroles list\n"
+            msg += "exclude [game name] - Exlcude a game from auto role\n"
+            msg += "  example: [p]gameroles exclude GangBeasts\n"
             msg += "```"
             await self.bot.say(msg)
+    
+    async def member_update(self, before, after):
+        server = member.server
+        if server.id not in self.settings:
+            self.settings[server.id] = {}
+            self.games[server.id] = {}
+            fileIO("data/gameroles/settings.json","save",self.settings)
+            fileIO("data/gameroles/games.json","save",self.games)
+
 
 def check_setup():
     if not os.path.exists("data/gameroles"):
@@ -53,10 +60,8 @@ def check_setup():
         print("Creating welcome games.json")
         fileIO("data/gameroles/games.json", "save", {})
 
-    if not fileIO("data/gameroles/gamealias.json", "check"):
-        print("Creating welcome gamealias.json")
-        fileIO("data/gameroles/gamealias.json", "save", {})
-
 def setup(bot):
     check_setup()
-    bot.add_cog(GameRoles(bot))
+    n = GameRoles(bot)
+    bot.add_listener(n.member_update,"on_member_update")
+    bot.add_cog(n)
