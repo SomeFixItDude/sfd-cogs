@@ -17,7 +17,7 @@ class GameRoles:
         """Sets gameroles module settings"""
         server = ctx.message.server
         if server.id not in self.settings:
-            self.settings[server.id] = default_settings
+            self.settings[server.id] = {}
             self.games[server.id] = {}
             self.gamealias[server.id] = {}
             fileIO("data/gameroles/settings.json","save",self.settings)
@@ -32,6 +32,8 @@ class GameRoles:
             msg += "  example: [p]gameroles join GangBeasts"
             msg += "list - Lists available game roles"
             msg += "  example: [p]gameroles list"
+            msg += "exclude [game name] - Exlcude a game from auto role"
+            msg += "  example: [p]gameroles exclude GangBeasts"
             msg += "```"
             await self.bot.say(msg)
 
